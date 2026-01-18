@@ -7,17 +7,11 @@
 // netinet/in.h includes #define INET6_ADDRSTRLEN 48 
 #include <netinet/in.h>
 
-int host(int argc, char *argv[]) {
+int host(char *host) {
 
     struct addrinfo hints, *res, *p;
     int status;
     char ipstr[INET6_ADDRSTRLEN];
-
-    if (argc != 2) {
-        // fprintf is formated. printf is not
-        fprintf(stderr, "usage: show ip / hostname\n");
-        return 1;
-    }
 
     /*
         memset is used to fill a block of memory:    
@@ -29,13 +23,13 @@ int host(int argc, char *argv[]) {
     hints.ai_addr = AF_UNSPEC;
     hints.ai_socktype = SOCK_STREAM;
 
-    // getaddrinfo(argv[1], NULL, &hints, &res) returns an integer. Test: "printf("%d\n", getaddrinfo(argv[1], NULL, &hints, &res))";
-    if ((status = getaddrinfo(argv[1], NULL, &hints, &res)) != 0) {
+    // getaddrinfo(host, NULL, &hints, &res) returns an integer. Test: "printf("%d\n", getaddrinfo(host, NULL, &hints, &res))";
+    if ((status = getaddrinfo(host, NULL, &hints, &res)) != 0) {
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(status));
         return 2;
     }
 
-    printf("IP address for %s:\n\n", argv[1]);
+    printf("IP address for %s:\n\n", host);
 
     // printf("%p\n", p);
     // printf("%p\n", res);

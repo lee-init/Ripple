@@ -4,4 +4,12 @@
 
 Ripple is a work in progress network scanner.
 
-Learning C and NetworkProgramming as I go
+Learning C and Network Programming as I go
+
+
+### Build
+gcc ripple.c -o ripple
+
+### Run
+./ripple <ip addres>
+
